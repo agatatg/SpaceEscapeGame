@@ -22,7 +22,7 @@ pygame.init()
 # ----------------------------------------------------------
 WIDTH, HEIGHT = 800, 600
 FPS = 60
-pygame.display.set_caption("🚀 Space Escape")
+pygame.display.set_caption("🚀 Space Escape – versão do grupo 3")
 
 # ----------------------------------------------------------
 # 🧩 SEÇÃO DE ASSETS (troque os arquivos de assets aqui)
