@@ -135,11 +135,38 @@ while running:
 
         # Colisão
         if meteor.colliderect(player_rect):
-            lives -= 1
-            meteor.y = random.randint(-100, -40)
-            meteor.x = random.randint(0, WIDTH - meteor.width)
+
+            #SOM DE EXPLOSÃO
             if sound_hit:
                 sound_hit.play()
+
+            #EFEITO VISUAL: piscar o jogador rapidamente
+            for _ in range(3):
+                screen.blit(background, (0, 0))
+                for m in meteor_list:
+                    screen.blit(meteor_img, m)
+                # pisca vermelho
+                flash = pygame.Surface(player_rect.size)
+                flash.fill((255, 50, 50))
+                screen.blit(flash, player_rect)
+                pygame.display.flip()
+                pygame.time.delay(80)
+
+                screen.blit(background, (0, 0))
+                for m in meteor_list:
+                    screen.blit(meteor_img, m)
+                # pisca normal
+                screen.blit(player_img, player_rect)
+                pygame.display.flip()
+                pygame.time.delay(80)
+
+            #reduzir vidas
+            lives -= 1
+
+            # reposiciona meteoro
+            meteor.y = random.randint(-100, -40)
+            meteor.x = random.randint(0, WIDTH - meteor.width)
+
             if lives <= 0:
                 running = False
 
