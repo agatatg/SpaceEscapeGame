@@ -130,7 +130,7 @@ lives = 3
 font = pygame.font.Font(None,36)
 clock = pygame.time.Clock()
 running = True
-
+paused = False  # Funcionalidade 9 - Tela de pausa
 # ----------------------------------------------------------
 # 🟨 POWER-UP (Funcionalidade 3 - som ao pegar)
 # ----------------------------------------------------------
@@ -181,8 +181,19 @@ while running:
 
     # EVENTOS
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    if event.type == pygame.QUIT:
+        running = False
+
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_p:
+            paused = not paused
+            
+    if paused:
+    # desenhar mensagem de pausa
+    pause_text = font.render("Jogo Pausado - Pressione P para continuar", True, (255,255,255))
+    screen.blit(pause_text, (120, 250))
+    pygame.display.flip()
+    continue
 
     # MOVIMENTO JOGADOR
     keys = pygame.key.get_pressed()
