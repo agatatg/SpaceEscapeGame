@@ -14,12 +14,12 @@
 # Autor: Serge Quadrado
 # Fonte: https://pixabay.com/sound-effects/cool-hip-hop-loop-275527/
 # Licença: Pixabay Content License
-#
 # Som de power-up:
 # Fonte: https://pixabay.com/sound-effects/power-up-type-1-230548/
-#
 # Som de colisão:
 # Fonte: https://pixabay.com/sound-effects/stab-f-01-brvhrtz-224599/
+# Imagens dos meteoros:
+# blaze.png, firetex3.png, sun.png  — autor: FacadeGaikan, baixado de OpenGameArt.org
 
 import pygame
 import random
@@ -44,9 +44,12 @@ pygame.display.set_caption("🚀 Space Escape")
 ASSETS = {
     "background": "fundo_espacial.png",
     "player": "nave001.png",
-    "meteor1": "meteoro001.png",
-    "meteor2": "meteoro002.png",
-    "meteor3": "meteoro003.png",
+
+    # FUNCIONALIDADE 8 — novos meteoros
+    "meteor1": "blaze.png",
+    "meteor2": "firetex3.png",
+    "meteor3": "sun.png",
+
     "sound_point": "classic-game-action-positive-5-224402.mp3",
     "sound_hit": "stab-f-01-brvhrtz-224599.mp3",
     "sound_powerup": "power-up-type-1-230548.mp3",
@@ -83,9 +86,9 @@ def load_image(filename, fallback_color, size=None):
 background = load_image(ASSETS["background"], WHITE, (WIDTH, HEIGHT))
 player_img = load_image(ASSETS["player"], BLUE, (80, 60))
 
-meteor_img1 = load_image(ASSETS["meteor1"], RED, (40, 40))
-meteor_img2 = load_image(ASSETS["meteor2"], RED, (40, 40))
-meteor_img3 = load_image(ASSETS["meteor3"], RED, (40, 40))
+meteor_img1 = load_image(ASSETS["meteor1"], RED, (60, 60))
+meteor_img2 = load_image(ASSETS["meteor2"], RED, (60, 60))
+meteor_img3 = load_image(ASSETS["meteor3"], RED, (60, 60))
 
 meteor_sprites = [meteor_img1, meteor_img2, meteor_img3]
 
