@@ -9,7 +9,7 @@
 ##############################################################
 ### Prof. Filipo Novo Mor - github.com/ProfessorFilipo     ###
 ##############################################################
-
+# comentário temporário só para atualizar o Git
 # Música de fundo:
 # Título: Cool Hip-Hop Loop
 # Autor: Serge Quadrado
@@ -142,6 +142,23 @@ life_powerup_rect = pygame.Rect(
 life_powerup_speed = 3
 
 # ----------------------------------------------------------
+# 🔵 POWER-UP DE VELOCIDADE (Funcionalidade 6)
+# ----------------------------------------------------------
+SPEED_POWERUP_SIZE = 40
+speed_powerup_rect = pygame.Rect(
+    random.randint(0, WIDTH - SPEED_POWERUP_SIZE),
+    random.randint(-1500, -800),
+    SPEED_POWERUP_SIZE,
+    SPEED_POWERUP_SIZE
+)
+speed_powerup_speed = 3
+
+speed_boost_active = False
+speed_boost_timer = 0
+NORMAL_SPEED = 7
+BOOST_SPEED = 12
+
+# ----------------------------------------------------------
 # 🕹️ LOOP PRINCIPAL
 # ----------------------------------------------------------
 while running:
@@ -201,6 +218,12 @@ while running:
         life_powerup_rect.x = random.randint(0, WIDTH - LIFE_POWERUP_SIZE)
         life_powerup_rect.y = random.randint(-200, -40)
 
+    # --- Movimento do power-up de velocidade ---
+    speed_powerup_rect.y += speed_powerup_speed
+    if speed_powerup_rect.y > HEIGHT:
+        speed_powerup_rect.x = random.randint(0, WIDTH - SPEED_POWERUP_SIZE)
+        speed_powerup_rect.y = random.randint(-1500, -800)
+
     # Colisão com power-up de vida extra
     if player_rect.colliderect(life_powerup_rect):
         lives = min(lives + 1, 5)  # limite de 5 vidas
@@ -208,6 +231,22 @@ while running:
             sound_powerup.play()
         life_powerup_rect.x = random.randint(0, WIDTH - LIFE_POWERUP_SIZE)
         life_powerup_rect.y = random.randint(-1200, -600)
+
+    # Colisão com power-up de velocidade
+    if player_rect.colliderect(speed_powerup_rect):
+        speed_boost_active = True
+        speed_boost_timer = pygame.time.get_ticks()
+        player_speed = BOOST_SPEED
+        if sound_powerup:
+            sound_powerup.play()
+        speed_powerup_rect.x = random.randint(0, WIDTH - SPEED_POWERUP_SIZE)
+        speed_powerup_rect.y = random.randint(-1500, -800)
+
+    # --- Controle do tempo do boost de velocidade ---
+    if speed_boost_active:
+        if pygame.time.get_ticks() - speed_boost_timer >= 5000:  # 5 segundos
+            speed_boost_active = False
+            player_speed = NORMAL_SPEED
 
     # --- Desenha tudo ---
     screen.blit(player_img, player_rect)
@@ -219,6 +258,9 @@ while running:
 
     # Power-up de vida extra (verde)
     pygame.draw.rect(screen, GREEN, life_powerup_rect)
+
+    # Power-up de velocidade (azul)
+    pygame.draw.rect(screen, (0, 120, 255), speed_powerup_rect)
 
     # --- Exibe pontuação e vidas ---
     text = font.render(f"Pontos: {score}   Vidas: {lives}", True, WHITE)
