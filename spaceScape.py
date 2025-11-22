@@ -318,4 +318,8 @@ while running:
 
     pygame.display.flip()
 
+<<<<<<< HEAD
 pygame.quit()
+=======
+pygame.quit()
+>>>>>>> 941dc60861beb7411909a45b32589b3de469b884
